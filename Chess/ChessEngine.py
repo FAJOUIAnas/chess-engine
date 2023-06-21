@@ -278,7 +278,7 @@ class GameState:
                 moves.append(Move((r, c), (r, c - 2), self.board, isCastleMove=True))
 
 
-class CastleRights():
+class CastleRights:
     def __init__(self, wks, bks, wqs, bqs):
         self.wks = wks
         self.bks = bks
