@@ -30,7 +30,7 @@ def main():
     playerClicks = []
     gameOver = False
     playerOne = False
-    playerTwo = False
+    playerTwo = True
 
     while running:
         humanTurn = (gs.whiteToMove and playerOne) or (not gs.whiteToMove and playerTwo)
@@ -66,6 +66,7 @@ def main():
                     gs.undoMove()
                     moveMade = True
                     animate = False
+                    gameOver = False
                 if e.key == p.K_r:
                     gs = ChessEngine.GameState()
                     validMoves = gs.getValidMoves()
@@ -73,10 +74,13 @@ def main():
                     playerClicks = []
                     moveMade = False
                     animate = False
+                    gameOver = False
 
         if not gameOver and not humanTurn:
             # AIMove = ChessAI.findRandomMove(validMoves)
-            AIMove = ChessAI.findMinMaxMove(gs, validMoves)
+            # AIMove = ChessAI.findGreedyMove(gs, validMoves)
+            # AIMove = ChessAI.findMinMaxMove(gs, validMoves)
+            AIMove = ChessAI.findBestMove(gs, validMoves)
             if AIMove is None:
                 AIMove = ChessAI.findRandomMove(validMoves)
             gs.makeMove(AIMove)
@@ -128,7 +132,9 @@ def drawGameState(screen, gs, validMoves, sqSelected):
 
 def drawBoard(screen):
     global colors
-    colors = [p.Color("white"), p.Color("gray")]
+    # colors = [p.Color(211, 223, 229), p.Color(119, 153, 175)]
+    colors = [p.Color(234, 233, 210), p.Color(75, 115, 153)]
+    # colors = [p.Color("cyan"), p.Color("blue")]
     for r in range(DIMENSION):
         for c in range(DIMENSION):
             color = colors[((r + c) % 2)]
