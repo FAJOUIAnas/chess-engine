@@ -104,12 +104,24 @@ def main():
                 # AIMove = ChessAI.findRandomMove(validMoves)
                 # AIMove = ChessAI.findGreedyMove(gs, validMoves)
                 # AIMove = ChessAI.findMinMaxMove(gs, validMoves)
+                # AIMove = ChessAI.findBestMove(gs, validMoves)
                 if AIMove is None:
                     AIMove = ChessAI.findRandomMove(validMoves)
                 gs.makeMove(AIMove)
                 moveMade = True
                 animate = True
                 AIThinking = False
+
+        # if not gameOver and not humanTurn:
+        #     # AIMove = ChessAI.findRandomMove(validMoves)
+        #     # AIMove = ChessAI.findGreedyMove(gs, validMoves)
+        #     # AIMove = ChessAI.findMinMaxMove(gs, validMoves)
+        #     # AIMove = ChessAI.findBestMove(gs, validMoves)
+        #     if AIMove is None:
+        #         AIMove = ChessAI.findRandomMove(validMoves)
+        #     gs.makeMove(AIMove)
+        #     moveMade = True
+        #     animate = True
 
         if moveMade:
             if animate:
@@ -178,9 +190,9 @@ def drawMoveLog(screen, gs, font):
     moveLog = gs.moveLog
     moveTexts = []
     for i in range(0, len(moveLog), 2):
-        moveString = str(i//2 + 1) + "." + str(moveLog[i]) + " "
-        if i+1 < len(moveLog):
-            moveString += str(moveLog[i+1]) + " "
+        moveString = str(i // 2 + 1) + "." + str(moveLog[i]) + " "
+        if i + 1 < len(moveLog):
+            moveString += str(moveLog[i + 1]) + " "
         moveTexts.append(moveString)
 
     movesPerRow = 3
@@ -196,7 +208,6 @@ def drawMoveLog(screen, gs, font):
         textLocation = moveLogRect.move(padding, textY)
         screen.blit(textObject, textLocation)
         textY += textObject.get_height() + lineSpacing
-
 
 
 def animateMove(move, screen, board, clock):
@@ -231,6 +242,7 @@ def drawEndGameText(screen, text):
     screen.blit(textObject, textLocation)
     textObject = font.render(text, 0, p.Color("Black"))
     screen.blit(textObject, textLocation.move(2, 2))
+
 
 def drawThinkingText(screen, text):
     font = p.font.SysFont("Helvetica", 32, True, False)
